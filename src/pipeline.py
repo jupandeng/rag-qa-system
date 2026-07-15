@@ -39,11 +39,13 @@ class RAGPipeline:
         # 1. 检索
         hits = self.retriever.retrieve(question, top_k=top_k)
 
-        # 2. 拼装上下文
+        # 2. 拼装上下文（带页码溯源）
         context_parts = []
         for i, h in enumerate(hits):
             src = h["metadata"].get("source", "unknown")
-            context_parts.append(f"[来源{i+1}: {src}]\n{h['content']}")
+            page = h["metadata"].get("page", "")
+            page_info = f" 第{page}页" if page else ""
+            context_parts.append(f"[来源{i+1}: {src}{page_info}]\n{h['content']}")
         context = "\n\n---\n\n".join(context_parts)
 
         # 3. 生成回答

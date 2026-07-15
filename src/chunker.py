@@ -78,5 +78,34 @@ def markdown_split(text: str, max_chunk_size: int = 1024) -> list[Chunk]:
 def auto_split(text: str, file_type: str = "txt") -> list[Chunk]:
     """根据文件类型自动选择切分策略"""
     if file_type == "markdown":
-        return markdown_split(text)
-    return sentence_split(text)
+        chunks = markdown_split(text)
+    else:
+        chunks = sentence_split(text)
+
+    # 尝试从文本中提取页码标记 [第N页]，注入到 chunk 元数据
+    _inject_page_numbers(text, chunks)
+    return chunks
+
+
+def _inject_page_numbers(text: str, chunks: list[Chunk]):
+    """根据 [第N页] 标记，为每个 chunk 标注来源页码"""
+    # 找到所有页码标记的位置
+    page_positions = [
+        (m.start(), int(m.group(1)))
+        for m in re.finditer(r"\[第(\d+)页\]", text)
+    ]
+    if not page_positions:
+        return
+
+    for chunk in chunks:
+        chunk_start = text.find(chunk.content[:30])
+        if chunk_start == -1:
+            continue
+        # 找到这个 chunk 之前的最后一个页码标记
+        page = 1
+        for pos, pn in page_positions:
+            if pos <= chunk_start:
+                page = pn
+            else:
+                break
+        chunk.metadata["page"] = page
