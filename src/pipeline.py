@@ -1,4 +1,4 @@
-"""RAG 主流程：加载→切分→索引→查询改写→检索→生成"""
+"""RAG 主流程：加载→切分→索引→查询改写→检索→缓存→生成"""
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -6,6 +6,8 @@ from openai import OpenAI
 from .embedder import build_index, load_index
 from .retriever import HybridRetriever
 from .rewriter import QueryRewriter, QuestionRouter
+from .indexer import IncrementalIndexer
+from .cache import LayeredCache
 
 load_dotenv()
 
@@ -21,10 +23,19 @@ class RAGPipeline:
         self.retriever: HybridRetriever | None = None
         self.rewriter = QueryRewriter()
         self.router = QuestionRouter()
+        self.indexer = IncrementalIndexer(index_dir)
+        self.cache = LayeredCache()
 
-    def ingest(self, file_paths: list[Path]):
-        """离线索引：加载文档 → 切分 → 向量化 → 存储"""
-        vectorstore = build_index(file_paths, self.index_dir)
+    def ingest(self, file_paths: list[Path], incremental: bool = True):
+        """离线索引：支持全量/增量构建"""
+        if incremental and Path(self.index_dir).exists():
+            stats = self.indexer.build_incremental(file_paths)
+            print(f"[Index] 增量索引: 新增{stats['new']} 修改{stats['modified']} 删除{stats['deleted']}")
+        else:
+            self.indexer.build_full(file_paths)
+            print(f"[Index] 全量索引完成")
+
+        vectorstore = load_index(self.index_dir)
         self.retriever = HybridRetriever(vectorstore)
 
     def load(self):
@@ -35,11 +46,21 @@ class RAGPipeline:
         self.retriever = HybridRetriever(vectorstore)
 
     def query(self, question: str, top_k: int = 5) -> dict:
-        """在线问答：查询改写 → 多路检索 → 上下文拼装 → 生成"""
+        """在线问答：缓存检查 → 查询改写 → 多路检索 → 生成"""
         if self.retriever is None:
             self.load()
 
-        # 1. 查询改写：生成 2-3 个不同表述
+        # 0. 缓存检查
+        # FAQ 精确匹配
+        faq_hit = self.cache.get_faq(question)
+        if faq_hit:
+            return {"answer": faq_hit, "sources": [], "context": "", "cached": True}
+        # QA 模糊缓存
+        qa_hit = self.cache.get_qa(question)
+        if qa_hit:
+            return qa_hit
+
+        # 1. 查询改写
         queries = self.rewriter.rewrite(question)
 
         # 2. 多查询检索 + 合并去重
@@ -66,7 +87,12 @@ class RAGPipeline:
         # 6. 引用核查
         answer = self._verify_citations(answer, hits)
 
-        return {"answer": answer, "sources": hits, "context": context}
+        result = {"answer": answer, "sources": hits, "context": context}
+
+        # 7. 写入缓存
+        self.cache.set_qa(question, result)
+
+        return result
 
     def _multi_query_retrieve(self, queries: list[str], top_k: int) -> list[dict]:
         """多查询检索：每个改写查询各自召回，合并去重"""
