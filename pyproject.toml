@@ -1,0 +1,21 @@
+[project]
+name = "rag-qa-system"
+version = "1.0.0"
+description = "基于 RAG 的智能知识库问答系统 — 多格式文档 / 混合检索 / VLM 图片理解"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "jupandeng" }
+]
+keywords = ["rag", "qa", "llm", "vector-search", "knowledge-base"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Repository = "https://github.com/jupandeng/rag-qa-system"
