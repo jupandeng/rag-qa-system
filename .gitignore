@@ -26,3 +26,8 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Data (vector index, cache, uploads)
+data/index/
+data/experiences.json
+data/cache/

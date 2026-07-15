@@ -4,6 +4,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Test](https://github.com/jupandeng/rag-qa-system/actions/workflows/test.yml/badge.svg)](https://github.com/jupandeng/rag-qa-system/actions/workflows/test.yml)
 
 ## 架构
 
