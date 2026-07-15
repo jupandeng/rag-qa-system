@@ -65,15 +65,22 @@ def _ocr_image(image_bytes: bytes) -> str:
     return "\n".join(lines)
 
 
-def load_pdf(file_path: Path, enable_ocr: bool = False) -> Document:
+def load_pdf(file_path: Path, enable_ocr: bool = False, enable_vlm: bool = False) -> Document:
     """加载 PDF，按页提取文本和图片中的文字
 
     Args:
         file_path: PDF 文件路径
         enable_ocr: 是否对 PDF 中的图片执行 OCR（首次运行会下载模型）
+        enable_vlm: 是否用 VLM 对图片生成语义描述（需配置 VLM_API_KEY）
     """
     doc = fitz.open(str(file_path))
     pages_content = []
+
+    # 延迟加载 VLM
+    vlm = None
+    if enable_vlm:
+        from .vision import ImageDescriber
+        vlm = ImageDescriber()
 
     for page_num, page in enumerate(doc, start=1):
         page_parts = []
@@ -83,16 +90,25 @@ def load_pdf(file_path: Path, enable_ocr: bool = False) -> Document:
         if text.strip():
             page_parts.append(text.strip())
 
-        # 2. OCR：提取图片中的文字
-        if enable_ocr:
-            images = page.get_images(full=True)
-            for img_info in images:
-                xref = img_info[0]
-                base_image = doc.extract_image(xref)
-                image_bytes = base_image["image"]
+        # 2. 处理图片：OCR + VLM
+        images = page.get_images(full=True)
+        for img_info in images:
+            xref = img_info[0]
+            base_image = doc.extract_image(xref)
+            image_bytes = base_image["image"]
+            img_format = base_image.get("ext", "png")
+
+            # OCR：文字识别
+            if enable_ocr:
                 img_text = _ocr_image(image_bytes)
                 if img_text.strip():
                     page_parts.append(f"[图片文字]\n{img_text}")
+
+            # VLM：语义描述
+            if vlm:
+                desc = vlm.describe(image_bytes, img_format)
+                if desc and not desc.startswith("[VLM不可用"):
+                    page_parts.append(f"[图片描述]\n{desc}")
 
         if page_parts:
             # 标记页码，方便后续溯源
