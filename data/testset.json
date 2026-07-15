@@ -1,0 +1,22 @@
+[
+  {
+    "question": "什么是RAG？",
+    "ground_truth": "RAG（检索增强生成）是一种将信息检索与文本生成相结合的技术架构。它在LLM生成回答之前先从外部知识库检索相关信息，将检索结果作为上下文提供给LLM，从而减少幻觉、提升回答准确性。"
+  },
+  {
+    "question": "RAG解决了哪些问题？",
+    "ground_truth": "RAG主要解决了三个问题：幻觉问题（LLM编造不存在的事实）、知识更新问题（LLM训练数据有截止日期）、领域适配问题（通用LLM不熟悉特定领域知识）。"
+  },
+  {
+    "question": "Python里字符串拼接为什么推荐用join而不是+=？",
+    "ground_truth": "因为Python字符串是不可变对象，每次使用+=拼接都会创建新的字符串对象并复制原有内容，循环中反复拼接时间复杂度达到O(n²)。用列表收集后join一次性拼接可以避免这个问题。"
+  },
+  {
+    "question": "DeepSeek API怎么接入？",
+    "ground_truth": "在platform.deepseek.com注册账号，创建API密钥，将base_url设置为https://api.deepseek.com，使用OpenAI SDK直接调用。DeepSeek兼容OpenAI格式。"
+  },
+  {
+    "question": "Python列表推导式有什么优势？",
+    "ground_truth": "列表推导式不仅代码更简洁，执行效率通常比等价for循环快10-20%，因为在C层面执行避免了Python层面的循环开销和属性查找。"
+  }
+]

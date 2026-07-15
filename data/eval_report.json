@@ -1,0 +1,120 @@
+{
+  "total_samples": 5,
+  "faithfulness": 1.0,
+  "answer_relevancy": 1.0,
+  "context_relevancy": 1.0,
+  "details": [
+    {
+      "question": "什么是RAG？",
+      "ground_truth": "RAG（检索增强生成）是一种将信息检索与文本生成相结合的技术架构。它在LLM生成回答之前先从外部知识库检索相关信息，将检索结果作为上下文提供给LLM，从而减少幻觉、提升回答准确性。",
+      "answer": "RAG（Retrieval-Augmented Generation，检索增强生成）是一种将信息检索与文本生成相结合的技术架构。它的核心思想是：在 LLM 生成回答之前，先从外部知识库中检索相关信息，然后将检索结果作为上下文提供给 LLM，从而减少幻觉、提升回答的准确性。\n\nRAG 系统通常包含两个阶段：\n1. **离线索引阶段**：将文档加载、切分、向量化后存入向量数据库。\n2. **在线检索阶段**：接收用户查询，从向量数据库中检索相关文档片段，拼装成上下文，交给 LLM 生成回答。\n\nRAG 的主要优势包括：\n- **解决幻觉问题**：通过提供真实的参考资料来约束 LLM 的输出。\n- **知识更新**：可以检索最新的文档，保持知识的时效性。\n- **领域适配**：让 LLM 基于企业内部的文档回答问题，适应特定领域知识。\n\n引用来源：[来源1: RAG入门指南.md]、[来源2: RAG入门指南.md]、[来源3: RAG入门指南.md]",
+      "contexts": [
+        "RAG（Retrieval-Augmented Generation，检索增强生成）是一种将信息检索与文本生成相结合的技术架构。它的核心思想是：在 LLM 生成回答之前，先从外部知识库中检索相关信息，然后将检索结果作为上下文提供给 LLM，从而减少幻觉、提升回答的准确性。",
+        "RAG 系统通常包含两个阶段：1.**离线索引阶段**：将文档加载、切分、向量化后存入向量数据库。2.**在线检索阶段**：接收用户查询，从向量数据库中检索相关文档片段，拼装成上下文，交给 LLM 生成回答。",
+        "- **解决幻觉问题**：LLM 可能会编造不存在的事实。RAG 通过提供真实的参考资料来约束 LLM 的输出。- **知识更新**：LLM 的训练数据有截止日期。RAG 可以检索最新的文档，保持知识的时效性。- **领域适配**：通用 LLM 不熟悉特定领域的知识。RAG 可以让 LLM 基于企业内部的文档回答问题。",
+        "中文场景推荐使用 BGE 系列模型，如 BAAI/bge-large-zh-v1.5。它由智源研究院训练，在中文语义理解任务上表现优异。",
+        "列表推导式不仅代码更简洁，而且执行效率通常比等价的 for 循环快 10-20%。原因是列表推导式在 C 层面执行，避免了 Python 层面的循环开销和属性查找。```python",
+        "DeepSeek API 使用指南DeepSeek 提供了兼容 OpenAI 格式的 API 接口，开发者无需修改代码即可接入。API 地址：https://api.deepseek.com主要模型：deepseek-chat（对话模型）、deepseek-reasoner（推理模型）计费方式：按 token 计费，价格约为 OpenAI 的十分之一。使用步骤：1.在 platform.deepseek.com 注册账号2.在 API Keys 页面创建密钥3.将 base_url 设置为 https://api.deepseek.com4.将 api_key 设置为你的密钥5.使用 OpenAI SDK 直接调用注意事项：- DeepSeek 目前不提供 Embedding API，Embedding 需要本地部署或使用其他服务商- deepseek-chat 支持 128K 上下文窗口- 支持 Function Calling 和 JSON Mode",
+        "result = [x * 2 for x in range(1000)]```",
+        "在 Python 中，字符串是不可变对象。每次使用 `+=` 拼接字符串时，Python 会创建一个全新的字符串对象并复制原有内容。如果在一个循环中反复拼接，时间复杂度会达到 O(n²)。正确的做法是使用列表收集所有片段，最后用 `join` 一次性拼接：```pythonparts = []for item in items:parts.append(str(item))result = \"\\n\".join(parts)```",
+        "result = []for x in range(1000):result.append(x * 2)",
+        "Python 3.7 引入的 `dataclass` 装饰器可以自动生成 `__init__`、`__repr__`、`__eq__` 等方法，大幅减少样板代码。```pythonfrom dataclasses import dataclass@dataclassclass User:name: strage: int```"
+      ],
+      "scores": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 1.0,
+        "context_relevancy": 1.0
+      }
+    },
+    {
+      "question": "RAG解决了哪些问题？",
+      "ground_truth": "RAG主要解决了三个问题：幻觉问题（LLM编造不存在的事实）、知识更新问题（LLM训练数据有截止日期）、领域适配问题（通用LLM不熟悉特定领域知识）。",
+      "answer": "根据参考资料，RAG（检索增强生成）主要解决了以下三个问题：\n\n1. **解决幻觉问题**：LLM 可能会编造不存在的事实，RAG 通过提供真实的参考资料来约束 LLM 的输出，减少幻觉。\n2. **知识更新**：LLM 的训练数据有截止日期，无法获取最新信息。RAG 可以检索最新的文档，保持知识的时效性。\n3. **领域适配**：通用 LLM 不熟悉特定领域的知识，RAG 可以让 LLM 基于企业内部的文档回答问题，实现领域适配。\n\n**引用来源**：来源1: RAG入门指南.md",
+      "contexts": [
+        "- **解决幻觉问题**：LLM 可能会编造不存在的事实。RAG 通过提供真实的参考资料来约束 LLM 的输出。- **知识更新**：LLM 的训练数据有截止日期。RAG 可以检索最新的文档，保持知识的时效性。- **领域适配**：通用 LLM 不熟悉特定领域的知识。RAG 可以让 LLM 基于企业内部的文档回答问题。",
+        "RAG（Retrieval-Augmented Generation，检索增强生成）是一种将信息检索与文本生成相结合的技术架构。它的核心思想是：在 LLM 生成回答之前，先从外部知识库中检索相关信息，然后将检索结果作为上下文提供给 LLM，从而减少幻觉、提升回答的准确性。",
+        "RAG 系统通常包含两个阶段：1.**离线索引阶段**：将文档加载、切分、向量化后存入向量数据库。2.**在线检索阶段**：接收用户查询，从向量数据库中检索相关文档片段，拼装成上下文，交给 LLM 生成回答。",
+        "列表推导式不仅代码更简洁，而且执行效率通常比等价的 for 循环快 10-20%。原因是列表推导式在 C 层面执行，避免了 Python 层面的循环开销和属性查找。```python",
+        "Python 3.7 引入的 `dataclass` 装饰器可以自动生成 `__init__`、`__repr__`、`__eq__` 等方法，大幅减少样板代码。```pythonfrom dataclasses import dataclass@dataclassclass User:name: strage: int```",
+        "DeepSeek API 使用指南DeepSeek 提供了兼容 OpenAI 格式的 API 接口，开发者无需修改代码即可接入。API 地址：https://api.deepseek.com主要模型：deepseek-chat（对话模型）、deepseek-reasoner（推理模型）计费方式：按 token 计费，价格约为 OpenAI 的十分之一。使用步骤：1.在 platform.deepseek.com 注册账号2.在 API Keys 页面创建密钥3.将 base_url 设置为 https://api.deepseek.com4.将 api_key 设置为你的密钥5.使用 OpenAI SDK 直接调用注意事项：- DeepSeek 目前不提供 Embedding API，Embedding 需要本地部署或使用其他服务商- deepseek-chat 支持 128K 上下文窗口- 支持 Function Calling 和 JSON Mode",
+        "中文场景推荐使用 BGE 系列模型，如 BAAI/bge-large-zh-v1.5。它由智源研究院训练，在中文语义理解任务上表现优异。",
+        "在 Python 中，字符串是不可变对象。每次使用 `+=` 拼接字符串时，Python 会创建一个全新的字符串对象并复制原有内容。如果在一个循环中反复拼接，时间复杂度会达到 O(n²)。正确的做法是使用列表收集所有片段，最后用 `join` 一次性拼接：```pythonparts = []for item in items:parts.append(str(item))result = \"\\n\".join(parts)```",
+        "result = [x * 2 for x in range(1000)]```",
+        "result = []for x in range(1000):result.append(x * 2)"
+      ],
+      "scores": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 1.0,
+        "context_relevancy": 1.0
+      }
+    },
+    {
+      "question": "Python里字符串拼接为什么推荐用join而不是+=？",
+      "ground_truth": "因为Python字符串是不可变对象，每次使用+=拼接都会创建新的字符串对象并复制原有内容，循环中反复拼接时间复杂度达到O(n²)。用列表收集后join一次性拼接可以避免这个问题。",
+      "answer": "在 Python 中，字符串是不可变对象。使用 `+=` 拼接字符串时，每次操作都会创建一个全新的字符串对象并复制原有内容。如果在循环中反复使用 `+=`，时间复杂度会达到 O(n²)，性能较差。而使用 `join` 方法可以一次性拼接所有片段，避免重复创建和复制，效率更高。\n\n推荐做法：\n```python\nparts = []\nfor item in items:\n    parts.append(str(item))\nresult = \"\\n\".join(parts)\n```\n\n来源：[来源1: Python性能优化.md]",
+      "contexts": [
+        "在 Python 中，字符串是不可变对象。每次使用 `+=` 拼接字符串时，Python 会创建一个全新的字符串对象并复制原有内容。如果在一个循环中反复拼接，时间复杂度会达到 O(n²)。正确的做法是使用列表收集所有片段，最后用 `join` 一次性拼接：```pythonparts = []for item in items:parts.append(str(item))result = \"\\n\".join(parts)```",
+        "列表推导式不仅代码更简洁，而且执行效率通常比等价的 for 循环快 10-20%。原因是列表推导式在 C 层面执行，避免了 Python 层面的循环开销和属性查找。```python",
+        "Python 3.7 引入的 `dataclass` 装饰器可以自动生成 `__init__`、`__repr__`、`__eq__` 等方法，大幅减少样板代码。```pythonfrom dataclasses import dataclass@dataclassclass User:name: strage: int```",
+        "RAG 系统通常包含两个阶段：1.**离线索引阶段**：将文档加载、切分、向量化后存入向量数据库。2.**在线检索阶段**：接收用户查询，从向量数据库中检索相关文档片段，拼装成上下文，交给 LLM 生成回答。",
+        "中文场景推荐使用 BGE 系列模型，如 BAAI/bge-large-zh-v1.5。它由智源研究院训练，在中文语义理解任务上表现优异。",
+        "result = []for x in range(1000):result.append(x * 2)",
+        "result = [x * 2 for x in range(1000)]```",
+        "DeepSeek API 使用指南DeepSeek 提供了兼容 OpenAI 格式的 API 接口，开发者无需修改代码即可接入。API 地址：https://api.deepseek.com主要模型：deepseek-chat（对话模型）、deepseek-reasoner（推理模型）计费方式：按 token 计费，价格约为 OpenAI 的十分之一。使用步骤：1.在 platform.deepseek.com 注册账号2.在 API Keys 页面创建密钥3.将 base_url 设置为 https://api.deepseek.com4.将 api_key 设置为你的密钥5.使用 OpenAI SDK 直接调用注意事项：- DeepSeek 目前不提供 Embedding API，Embedding 需要本地部署或使用其他服务商- deepseek-chat 支持 128K 上下文窗口- 支持 Function Calling 和 JSON Mode",
+        "RAG（Retrieval-Augmented Generation，检索增强生成）是一种将信息检索与文本生成相结合的技术架构。它的核心思想是：在 LLM 生成回答之前，先从外部知识库中检索相关信息，然后将检索结果作为上下文提供给 LLM，从而减少幻觉、提升回答的准确性。",
+        "- **解决幻觉问题**：LLM 可能会编造不存在的事实。RAG 通过提供真实的参考资料来约束 LLM 的输出。- **知识更新**：LLM 的训练数据有截止日期。RAG 可以检索最新的文档，保持知识的时效性。- **领域适配**：通用 LLM 不熟悉特定领域的知识。RAG 可以让 LLM 基于企业内部的文档回答问题。"
+      ],
+      "scores": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 1.0,
+        "context_relevancy": 1.0
+      }
+    },
+    {
+      "question": "DeepSeek API怎么接入？",
+      "ground_truth": "在platform.deepseek.com注册账号，创建API密钥，将base_url设置为https://api.deepseek.com，使用OpenAI SDK直接调用。DeepSeek兼容OpenAI格式。",
+      "answer": "根据参考资料，接入 DeepSeek API 的步骤如下：\n\n1. 在 [platform.deepseek.com](https://platform.deepseek.com) 注册账号。\n2. 在 API Keys 页面创建密钥。\n3. 将 `base_url` 设置为 `https://api.deepseek.com`。\n4. 将 `api_key` 设置为你的密钥。\n5. 使用 OpenAI SDK 直接调用（DeepSeek 提供了兼容 OpenAI 格式的 API 接口）。\n\n此外，DeepSeek 目前不提供 Embedding API，主要模型包括 `deepseek-chat`（对话模型，支持 128K 上下文）和 `deepseek-reasoner`（推理模型），支持 Function Calling 和 JSON Mode。\n\n引用来源：[来源1: DeepSeek使用指南.txt]",
+      "contexts": [
+        "DeepSeek API 使用指南DeepSeek 提供了兼容 OpenAI 格式的 API 接口，开发者无需修改代码即可接入。API 地址：https://api.deepseek.com主要模型：deepseek-chat（对话模型）、deepseek-reasoner（推理模型）计费方式：按 token 计费，价格约为 OpenAI 的十分之一。使用步骤：1.在 platform.deepseek.com 注册账号2.在 API Keys 页面创建密钥3.将 base_url 设置为 https://api.deepseek.com4.将 api_key 设置为你的密钥5.使用 OpenAI SDK 直接调用注意事项：- DeepSeek 目前不提供 Embedding API，Embedding 需要本地部署或使用其他服务商- deepseek-chat 支持 128K 上下文窗口- 支持 Function Calling 和 JSON Mode",
+        "RAG 系统通常包含两个阶段：1.**离线索引阶段**：将文档加载、切分、向量化后存入向量数据库。2.**在线检索阶段**：接收用户查询，从向量数据库中检索相关文档片段，拼装成上下文，交给 LLM 生成回答。",
+        "中文场景推荐使用 BGE 系列模型，如 BAAI/bge-large-zh-v1.5。它由智源研究院训练，在中文语义理解任务上表现优异。",
+        "RAG（Retrieval-Augmented Generation，检索增强生成）是一种将信息检索与文本生成相结合的技术架构。它的核心思想是：在 LLM 生成回答之前，先从外部知识库中检索相关信息，然后将检索结果作为上下文提供给 LLM，从而减少幻觉、提升回答的准确性。",
+        "Python 3.7 引入的 `dataclass` 装饰器可以自动生成 `__init__`、`__repr__`、`__eq__` 等方法，大幅减少样板代码。```pythonfrom dataclasses import dataclass@dataclassclass User:name: strage: int```",
+        "result = []for x in range(1000):result.append(x * 2)",
+        "列表推导式不仅代码更简洁，而且执行效率通常比等价的 for 循环快 10-20%。原因是列表推导式在 C 层面执行，避免了 Python 层面的循环开销和属性查找。```python",
+        "result = [x * 2 for x in range(1000)]```",
+        "- **解决幻觉问题**：LLM 可能会编造不存在的事实。RAG 通过提供真实的参考资料来约束 LLM 的输出。- **知识更新**：LLM 的训练数据有截止日期。RAG 可以检索最新的文档，保持知识的时效性。- **领域适配**：通用 LLM 不熟悉特定领域的知识。RAG 可以让 LLM 基于企业内部的文档回答问题。",
+        "在 Python 中，字符串是不可变对象。每次使用 `+=` 拼接字符串时，Python 会创建一个全新的字符串对象并复制原有内容。如果在一个循环中反复拼接，时间复杂度会达到 O(n²)。正确的做法是使用列表收集所有片段，最后用 `join` 一次性拼接：```pythonparts = []for item in items:parts.append(str(item))result = \"\\n\".join(parts)```"
+      ],
+      "scores": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 1.0,
+        "context_relevancy": 1.0
+      }
+    },
+    {
+      "question": "Python列表推导式有什么优势？",
+      "ground_truth": "列表推导式不仅代码更简洁，执行效率通常比等价for循环快10-20%，因为在C层面执行避免了Python层面的循环开销和属性查找。",
+      "answer": "根据参考资料，Python列表推导式的主要优势是：**代码更简洁，且执行效率通常比等价的 for 循环快 10-20%**。原因是列表推导式在 C 层面执行，避免了 Python 层面的循环开销和属性查找。\n\n**引用来源**：  \n[来源1: Python性能优化.md]",
+      "contexts": [
+        "列表推导式不仅代码更简洁，而且执行效率通常比等价的 for 循环快 10-20%。原因是列表推导式在 C 层面执行，避免了 Python 层面的循环开销和属性查找。```python",
+        "在 Python 中，字符串是不可变对象。每次使用 `+=` 拼接字符串时，Python 会创建一个全新的字符串对象并复制原有内容。如果在一个循环中反复拼接，时间复杂度会达到 O(n²)。正确的做法是使用列表收集所有片段，最后用 `join` 一次性拼接：```pythonparts = []for item in items:parts.append(str(item))result = \"\\n\".join(parts)```",
+        "Python 3.7 引入的 `dataclass` 装饰器可以自动生成 `__init__`、`__repr__`、`__eq__` 等方法，大幅减少样板代码。```pythonfrom dataclasses import dataclass@dataclassclass User:name: strage: int```",
+        "RAG（Retrieval-Augmented Generation，检索增强生成）是一种将信息检索与文本生成相结合的技术架构。它的核心思想是：在 LLM 生成回答之前，先从外部知识库中检索相关信息，然后将检索结果作为上下文提供给 LLM，从而减少幻觉、提升回答的准确性。",
+        "RAG 系统通常包含两个阶段：1.**离线索引阶段**：将文档加载、切分、向量化后存入向量数据库。2.**在线检索阶段**：接收用户查询，从向量数据库中检索相关文档片段，拼装成上下文，交给 LLM 生成回答。",
+        "- **解决幻觉问题**：LLM 可能会编造不存在的事实。RAG 通过提供真实的参考资料来约束 LLM 的输出。- **知识更新**：LLM 的训练数据有截止日期。RAG 可以检索最新的文档，保持知识的时效性。- **领域适配**：通用 LLM 不熟悉特定领域的知识。RAG 可以让 LLM 基于企业内部的文档回答问题。",
+        "中文场景推荐使用 BGE 系列模型，如 BAAI/bge-large-zh-v1.5。它由智源研究院训练，在中文语义理解任务上表现优异。",
+        "result = []for x in range(1000):result.append(x * 2)",
+        "result = [x * 2 for x in range(1000)]```",
+        "DeepSeek API 使用指南DeepSeek 提供了兼容 OpenAI 格式的 API 接口，开发者无需修改代码即可接入。API 地址：https://api.deepseek.com主要模型：deepseek-chat（对话模型）、deepseek-reasoner（推理模型）计费方式：按 token 计费，价格约为 OpenAI 的十分之一。使用步骤：1.在 platform.deepseek.com 注册账号2.在 API Keys 页面创建密钥3.将 base_url 设置为 https://api.deepseek.com4.将 api_key 设置为你的密钥5.使用 OpenAI SDK 直接调用注意事项：- DeepSeek 目前不提供 Embedding API，Embedding 需要本地部署或使用其他服务商- deepseek-chat 支持 128K 上下文窗口- 支持 Function Calling 和 JSON Mode"
+      ],
+      "scores": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 1.0,
+        "context_relevancy": 1.0
+      }
+    }
+  ],
+  "mrr": 1.0,
+  "hit_rate_at_5": 1.0
+}
