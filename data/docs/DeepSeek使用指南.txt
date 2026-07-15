@@ -1,0 +1,19 @@
+DeepSeek API 使用指南
+
+DeepSeek 提供了兼容 OpenAI 格式的 API 接口，开发者无需修改代码即可接入。
+
+API 地址：https://api.deepseek.com
+主要模型：deepseek-chat（对话模型）、deepseek-reasoner（推理模型）
+计费方式：按 token 计费，价格约为 OpenAI 的十分之一。
+
+使用步骤：
+1. 在 platform.deepseek.com 注册账号
+2. 在 API Keys 页面创建密钥
+3. 将 base_url 设置为 https://api.deepseek.com
+4. 将 api_key 设置为你的密钥
+5. 使用 OpenAI SDK 直接调用
+
+注意事项：
+- DeepSeek 目前不提供 Embedding API，Embedding 需要本地部署或使用其他服务商
+- deepseek-chat 支持 128K 上下文窗口
+- 支持 Function Calling 和 JSON Mode
